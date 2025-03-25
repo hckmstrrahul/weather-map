@@ -13,6 +13,7 @@ import { formatTime } from '@/utils/helpers'
 interface WeatherDisplayProps {
   weatherData: WeatherData
   className?: string
+  isDarkMode?: boolean
 }
 
 // Function to format time from timestamp
@@ -88,7 +89,7 @@ const RangeIndicator = ({
   )
 }
 
-const WeatherDisplay = ({ weatherData, className = '' }: WeatherDisplayProps) => {
+const WeatherDisplay = ({ weatherData, className = '', isDarkMode = false }: WeatherDisplayProps) => {
   const [showDetails, setShowDetails] = useState(false)
   
   // Format data from the API
@@ -243,23 +244,23 @@ const WeatherDisplay = ({ weatherData, className = '' }: WeatherDisplayProps) =>
   return (
     <div className={`transition-opacity duration-500 ${showDetails ? 'opacity-100' : 'opacity-0'} ${className}`}>
       {/* Primary Weather Info */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center">
-          <MiniLandscape />
-          <div className="ml-3">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">{weatherData.name}</h2>
-            <div className="flex items-center">
-              <img 
-                src={iconUrl(weatherData.weather[0].icon)} 
-                alt={weatherData.weather[0].description}
-                className="w-8 h-8 -ml-1"
-              />
-              <p className="text-sm text-gray-600 dark:text-gray-400">{weatherDescription}</p>
-            </div>
-          </div>
+      <div className="mb-6 flex items-start gap-6">
+        <div className="flex-shrink-0">
+          <img 
+            src={iconUrl(weatherData.weather[0].icon)} 
+            alt={weatherData.weather[0].description}
+            className="w-20 h-20"
+          />
         </div>
-        
-        <div className="bg-white/70 dark:bg-dark-800/70 px-5 py-2 rounded-full border border-gray-200 dark:border-dark-700 shadow-sm">
+        <div className="flex-grow min-w-0 pt-2">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 truncate">
+            {weatherData.name}
+          </h2>
+          <p className="text-base text-gray-600 dark:text-gray-400 mt-1">
+            {weatherDescription}
+          </p>
+        </div>
+        <div className="flex-shrink-0 bg-white/70 dark:bg-dark-800/70 px-5 py-2 rounded-full border border-gray-200 dark:border-dark-700 shadow-sm pt-2">
           <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">{tempCelsius}°C</span>
         </div>
       </div>

@@ -1,20 +1,25 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 
 interface SearchProps {
   onSearch: (location: string) => void
+  initialValue?: string
 }
 
-const Search = ({ onSearch }: SearchProps) => {
-  const [location, setLocation] = useState('')
+const Search = ({ onSearch, initialValue = '' }: SearchProps) => {
+  const [location, setLocation] = useState(initialValue)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!location.trim()) return
     onSearch(location)
   }
+
+  useEffect(() => {
+    setLocation(initialValue)
+  }, [initialValue])
 
   return (
     <form onSubmit={handleSubmit} className="w-full md:w-auto">
