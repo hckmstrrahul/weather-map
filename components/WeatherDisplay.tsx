@@ -244,7 +244,7 @@ const WeatherDisplay = ({ weatherData, className = '', isDarkMode = false }: Wea
   return (
     <div className={`transition-opacity duration-500 ${showDetails ? 'opacity-100' : 'opacity-0'} ${className}`}>
       {/* Primary Weather Info */}
-      <div className="mb-6 flex items-start gap-6">
+      <div className="mb-6 flex items-start gap-4">
         <div className="flex-shrink-0">
           <img 
             src={iconUrl(weatherData.weather[0].icon)} 
